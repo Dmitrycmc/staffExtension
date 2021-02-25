@@ -1,3 +1,5 @@
+import './global.css';
+
 const sleep = timeout => new Promise(res => setTimeout(res, timeout));
 
 const polling = async (getter, period, attempts) => {
@@ -93,12 +95,15 @@ const getDiffText = date => {
 
 const appendDiv = (parentNode, text, className, style ) => {
     const node = document.createElement('div');
-    node.innerText = text;
+    if (text) {
+        node.innerText = text;
+    }
     node.className = className;
     for (let prop in style) {
         node.style[prop] = style[prop];
     }
     parentNode.append(node);
+    return node;
 };
 
 const appendSalaryInfo = async () => {
@@ -131,3 +136,29 @@ const appendSalaryInfo = async () => {
 
 appendSalaryInfo();
 appendExactNumberVacationDays();
+
+
+const appendWorkTracker = () => {
+    chrome.storage.sync.get('startTime', ({startTime}) => {
+        const parentNode = document.querySelector('.b-profile__head');
+        const progressBar = appendDiv(parentNode, null, 'progress-bar staff-status__state staff-status__state_type_activity');
+        const progressLine = appendDiv(progressBar, null, 'progress-line staff-status__state staff-status__state_type_activity');
+
+        function updateAndPlan() {
+            progressLine.style.width = `${(new Date().getTime() - startTime)/(9*60*60*10)}%`;
+            setTimeout(() => {
+                updateAndPlan();
+            }, 15000);
+        }
+        updateAndPlan();
+    });
+
+    setTimeout(() => {}, );
+
+
+};
+
+chrome.storage.sync.set({startTime: 1614240000603});
+
+appendWorkTracker();
+

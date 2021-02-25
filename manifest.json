@@ -15,7 +15,7 @@
   "content_scripts": [
     {
       "matches": ["https://staff.yandex-team.ru/dmitrycmc"],
-      "js": ["staff.js"]
+      "js": ["build/staff.js"]
     }
   ]
 }

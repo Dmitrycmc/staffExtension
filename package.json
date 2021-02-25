@@ -1,0 +1,18 @@
+{
+  "name": "staff_extension",
+  "version": "0.1.0",
+  "description": "The extension for staff",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "./"
+  },
+  "author": "Dmitry Lytov",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0"
+  }
+}

@@ -1,32 +1,36 @@
 import {appendDiv} from "../helpers/dom";
 
+const N = 8;
+
 export const appendWorkTracker = () => {
     chrome.storage.sync.get('startTime', ({startTime}) => {
         const parentNode = document.querySelector('.b-profile__head');
-        const progressBar = appendDiv(parentNode, null, 'progress-bar');
+        const progressBar = appendDiv(parentNode, null, 'progress-bar', {
+            gridTemplateColumns: `repeat(${N}, 1fr)`
+        });
         const progressLine = appendDiv(progressBar, null, 'progress-line');
 
         const cellsProgresses = [];
-        for (let i = 0; i < 8; i++) {
-            const cellNode = appendDiv(progressBar, null, 'cell-wrapper');
-            const cellProgress = appendDiv(cellNode, null, 'cell-progress');
-            cellsProgresses.push(cellProgress);
+        for (let i = 0; i < N; i++) {
+            const cellOuter = appendDiv(progressBar, null, 'cell-outer');
+            const cellInner = appendDiv(cellOuter, null, 'cell-inner');
+            cellsProgresses.push(cellInner);
         }
 
         function updateAndPlan() {
-            const progress = (new Date().getTime() - startTime) / (9 * 60 * 60 * 1000);
-            progressLine.style.width = `${progress * 100}%`;
-            for (let i = 0; i < 8; i++) {
-                if ((i + 1) / 8 < progress) {
+            const progress = (new Date().getTime() - startTime) / (N * 60 * 60 * 1000);
+            progressLine.style.width = `calc(${progress * 100}% - 2px)`;
+            for (let i = 0; i < N; i++) {
+                if ((i + 1) / N < progress) {
                     cellsProgresses[i].style.width = '100%';
-                } else if (i / 8 > progress) {
+                } else if (i / N > progress) {
                     cellsProgresses[i].style.width = '0%';
                 } else {
-                    cellsProgresses[i].style.width = `${(progress - i / 8) * 8 * 100}%`;
+                    cellsProgresses[i].style.width = `calc((100% + 6px) * ${progress * N - i} - 3px)`;
                 }
             }
 
-            setTimeout(updateAndPlan, 15000);
+            setTimeout(updateAndPlan, 10000);
         }
 
         updateAndPlan();

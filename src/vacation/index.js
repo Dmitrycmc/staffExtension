@@ -1,3 +1,1 @@
-import {appendExactNumberVacationDays} from "./vacation";
-
-appendExactNumberVacationDays();
+export {appendExactNumberVacationDays} from './vacation';

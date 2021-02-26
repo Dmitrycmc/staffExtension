@@ -1,3 +1,1 @@
-import {appendSalaryInfo} from "./salary-info";
-
-appendSalaryInfo();
+export {appendSalaryInfo} from './salary-info';

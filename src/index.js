@@ -1,13 +1,14 @@
-chrome.storage.sync.onChanged.addListener(value => {
-    console.log(value);
-});
+import init from './init';
 
-import './work-tracker';
-import "./salary-info";
-import "./vacation";
+import {appendWorkTracker} from './work-tracker';
+import {appendSalaryInfo} from "./salary-info";
+import {appendExactNumberVacationDays} from "./vacation";
 
 import './global.css';
 
-appendSalaryInfo();
-appendExactNumberVacationDays();
+init().then(() => {
+    appendWorkTracker();
+    appendSalaryInfo();
+    appendExactNumberVacationDays();
+});
 

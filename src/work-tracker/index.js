@@ -1,9 +1,9 @@
-import {appendWorkTracker} from "./work-tracker";
+import appendProgressBar from "./progress-bar-container";
 import appendController from "./controller";
 
-const parentNode = document.querySelector('.b-profile__head');
+export const appendWorkTracker = () => {
+    const parentNode = document.querySelector('.b-profile__head');
 
-appendController(parentNode);
-appendWorkTracker(parentNode);
-
-
+    appendController(parentNode);
+    appendProgressBar(parentNode);
+};

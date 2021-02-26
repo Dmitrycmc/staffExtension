@@ -1,5 +1,5 @@
 import {appendDiv} from "../helpers/dom";
-import {chromeStorageGet, chromeStorageSet} from "../helpers/chrome";
+import {chromeStorageGet, chromeStorageRemove, chromeStorageSet} from "../helpers/chrome";
 
 
 const appendController = async (parentNode) => {
@@ -22,6 +22,12 @@ const appendController = async (parentNode) => {
             state: 'paused',
             endTime: new Date().getTime()
         });
+    };
+
+    const stopButton = appendDiv(container, 'stop');
+    stopButton.onclick = () => {
+        chromeStorageSet({state: 'stopped'});
+        chromeStorageRemove('startTime', 'endTime');
     };
 
     chrome.storage.sync.onChanged.addListener(({state}) => {

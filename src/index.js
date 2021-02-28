@@ -6,9 +6,11 @@ import {appendExactNumberVacationDays} from "./vacation";
 
 import './global.css';
 
-init().then(() => {
+const app = async () => {
+    await init();
     appendWorkTracker();
     appendSalaryInfo();
     appendExactNumberVacationDays();
-});
+};
 
+app();

@@ -1,12 +1,18 @@
 import {chromeStorageGet, chromeStorageSet} from "./helpers/chrome";
 
+const logState = async () => {
+    const [state, startTime, endTime] = await chromeStorageGet('state', 'startTime', 'endTime');
+    console.log("Init state: ", {state, startTime, endTime});
+};
+
 export default async () => {
-    if ((await chromeStorageGet('state'))[0] === undefined) {
+    const [state] = await chromeStorageGet('state');
+
+    if (state === undefined) {
         await chromeStorageSet({state: 'paused'});
     }
 
-    const [state, startTime, endTime] = await chromeStorageGet('state', 'startTime', 'endTime');
-    console.log("Init state: ", {state, startTime, endTime});
+    await logState();
 
     chrome.storage.sync.onChanged.addListener(value => {
         console.log(value);

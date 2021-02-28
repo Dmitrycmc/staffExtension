@@ -16,7 +16,7 @@ const appendController = async (parentNode) => {
         });
     };
 
-    const pauseButton = appendDiv(container, 'pause', state === 'paused' ? 'hidden' : '');
+    const pauseButton = appendDiv(container, 'pause', state !== 'playing' ? 'hidden' : '');
     pauseButton.onclick = () => {
         chromeStorageSet({
             state: 'paused',
@@ -32,13 +32,12 @@ const appendController = async (parentNode) => {
 
     chrome.storage.sync.onChanged.addListener(({state}) => {
         if (!state) return;
-        if (state.newValue === 'paused') {
-            pauseButton.classList.add('hidden');
-            playButton.classList.remove('hidden');
-        }
         if (state.newValue === 'playing') {
             playButton.classList.add('hidden');
             pauseButton.classList.remove('hidden');
+        } else {
+            pauseButton.classList.add('hidden');
+            playButton.classList.remove('hidden');
         }
     });
 };

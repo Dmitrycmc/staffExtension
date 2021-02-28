@@ -1,5 +1,6 @@
 import {polling} from "../helpers/async";
 import {appendDiv} from "../helpers/dom";
+import {isDayOff} from "../helpers/is-day-off";
 
 const compDates = (date1, date2) => new Date(date1).getTime() - new Date(date2).getTime();
 
@@ -18,20 +19,6 @@ const setDate = (date, day) => {
 const getDiffInDays = (date1, date2) => {
     return (new Date(date1.toISOString().split('T')[0]).getTime() - new Date(date2.toISOString().split('T')[0]).getTime()) / 1000 / 60 / 60 / 24
 };
-
-const isDayOff = (date) => new Promise((res, rej) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', `https://isdayoff.ru/${new Date(date).toISOString().split('T')[0]}`, true);
-    xhr.send();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState != 4) return;
-        if (xhr.status == 200) {
-            res(xhr.responseText === "1");
-        } else {
-            rej(xhr.status + ': ' + xhr.statusText);
-        }
-    }
-});
 
 const getNextSalaryDate = (date = new Date()) => {
     let day = date.getDate();

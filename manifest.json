@@ -1,9 +1,12 @@
 {
-  "name": "Getting Started Example",
-  "description": "Build an Extension!",
+  "name": "Staff extension",
+  "description": "Some useful features for your staff",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions": ["storage", "activeTab", "scripting"],
+  "permissions": ["storage"],
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
   },
   "icons": {
@@ -14,7 +17,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://staff.yandex-team.ru/dmitrycmc"],
+      "matches": ["https://staff.yandex-team.ru/*"],
       "js": ["build/staff.js"]
     }
   ]

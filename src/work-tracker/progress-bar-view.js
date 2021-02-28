@@ -4,7 +4,7 @@ export default (parentNode, n) => {
     const progressBar = appendDiv(parentNode, null, 'progress-bar', {
         gridTemplateColumns: `repeat(${n}, 1fr)`
     });
-    const labelNode = appendDiv(progressBar, null, 'progress-bar__time');
+    const labelNode = appendDiv(progressBar, null, 'progress-bar__label');
     const progressLine = appendDiv(progressBar, null, 'progress-line');
 
     const cellsProgresses = [];
@@ -27,9 +27,5 @@ export default (parentNode, n) => {
         }
     };
 
-    const setLabel = time => {
-        labelNode.textContent = time;
-    };
-
-    return [progressBar, setProgress, setLabel];
+    return [progressBar, setProgress, labelNode];
 };

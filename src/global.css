@@ -12,7 +12,7 @@
     overflow: hidden;
 }
 
-.progress-bar__time {
+.progress-bar__label {
     position: absolute;
     text-align: center;
     left: 0;

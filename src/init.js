@@ -1,8 +1,8 @@
 import {chromeStorageGet, chromeStorageSet} from "./helpers/chrome";
 
 const logState = async () => {
-    const [state, startTime, endTime, startDate] = await chromeStorageGet('state', 'startTime', 'endTime', 'startDate');
-    console.log("Init state: ", {state, startTime, endTime, startDate});
+    const [state, startTime, endTime, workingDate] = await chromeStorageGet('state', 'startTime', 'endTime', 'workingDate');
+    console.log("Init state: ", {state, startTime, endTime, workingDate});
 };
 
 export default async () => {

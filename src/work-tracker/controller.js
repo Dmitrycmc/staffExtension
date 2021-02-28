@@ -24,11 +24,13 @@ const appendController = async (parentNode) => {
         });
     };
 
+    /*
     const stopButton = appendDiv(container, 'stop');
     stopButton.onclick = () => {
         chromeStorageSet({state: 'stopped'});
         chromeStorageRemove('startTime', 'endTime');
     };
+    */
 
     chrome.storage.sync.onChanged.addListener(({state}) => {
         if (!state) return;

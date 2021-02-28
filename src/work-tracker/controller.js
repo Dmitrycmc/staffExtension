@@ -1,5 +1,5 @@
 import {appendDiv} from "../helpers/dom";
-import {chromeStorageGet, chromeStorageRemove, chromeStorageSet} from "../helpers/chrome";
+import {chromeStorageGet, chromeStorageSet} from "../helpers/chrome";
 
 
 const appendController = async (parentNode) => {

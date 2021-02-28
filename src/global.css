@@ -20,6 +20,14 @@
     bottom: 57px;
 }
 
+.progress-bar__label_positive {
+    color: #5db8ff;
+}
+
+.progress-bar__label_negative {
+    color: #ff5db8;
+}
+
 .progress-line {
     position: absolute;
     height: 100%;

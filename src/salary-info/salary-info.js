@@ -1,24 +1,7 @@
 import {polling} from "../helpers/async";
 import {appendDiv} from "../helpers/dom";
 import {isDayOff} from "../helpers/is-day-off";
-
-const compDates = (date1, date2) => new Date(date1).getTime() - new Date(date2).getTime();
-
-const shiftDate = (date, days) => {
-    const result = new Date(date);
-    result.setDate(result.getDate() + days);
-    return result;
-}
-
-const setDate = (date, day) => {
-    const result = new Date(date);
-    result.setDate(day);
-    return result;
-}
-
-const getDiffInDays = (date1, date2) => {
-    return (new Date(date1.toISOString().split('T')[0]).getTime() - new Date(date2.toISOString().split('T')[0]).getTime()) / 1000 / 60 / 60 / 24
-};
+import {diffDatesMs, getDiffInDays, getMonthString, setDate, shiftDate} from "../helpers/date-time";
 
 const getNextSalaryDate = (date = new Date()) => {
     let day = date.getDate();
@@ -31,21 +14,6 @@ const getNextSalaryDate = (date = new Date()) => {
     date.setMonth(date.getMonth() + 1);
     return setDate(date, 5);
 };
-
-const monthStrings = [
-    'января',
-    'февраля',
-    'марта',
-    'апреля',
-    'мая',
-    'июня',
-    'июля',
-    'августа',
-    'сентября',
-    'октября',
-    'ноября',
-    'декабря'
-];
 
 const getDiffText = date => {
     const diff = getDiffInDays(date, new Date());
@@ -69,7 +37,7 @@ export const appendSalaryInfo = async () => {
     let tempDate = nextSalaryDate;
 
     while (true) {
-        if (compDates(tempDate, new Date()) < 0) {
+        if (diffDatesMs(tempDate, new Date()) < 0) {
             tempDate = afterNextSalaryDate;
         }
         if (await isDayOff(tempDate)) {
@@ -89,6 +57,6 @@ export const appendSalaryInfo = async () => {
         marginTop: '10px',
         lineHeight: '20px'
     });
-    const salaryInfoText3 = `${tempDate.getDate()} ${monthStrings[tempDate.getMonth()]}`;
+    const salaryInfoText3 = `${tempDate.getDate()} ${getMonthString(tempDate)}`;
     appendDiv(parentNode, salaryInfoText3, 'b-profile__text', {marginTop: '10px', lineHeight: '20px'});
 };

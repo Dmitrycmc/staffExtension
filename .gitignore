@@ -1,3 +1,4 @@
-build
+build/background.js
+build/staff.js
 node_modules
 .idea

@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "description": "The extension for staff",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "clean": "rm -f build/staff.js build/background.js"
   },
   "repository": {
     "type": "git",

@@ -1,6 +1,15 @@
 const path = require('path');
 
-module.exports = {
+const backgroundConfig = {
+  entry: './src/background.js',
+  watch: true,
+  output: {
+    path: path.resolve(__dirname, 'build'),
+    filename: 'background.js',
+  },
+}
+
+const extensionConfig = {
   entry: './src/index.js',
   watch: true,
   output: {
@@ -15,4 +24,6 @@ module.exports = {
       },
     ],
   },
-};
+}
+
+module.exports = [backgroundConfig, extensionConfig];

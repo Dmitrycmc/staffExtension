@@ -1,13 +1,15 @@
-import {appendDiv} from "../helpers/dom";
+import {appendDiv, appendImg} from "../helpers/dom";
 import {chromeStorageGet, chromeStorageSet} from "../helpers/chrome";
 
+import restIcon from '../icons/rest.svg';
+import workIcon from '../icons/work.svg';
 
 const appendController = async (parentNode) => {
     const container = appendDiv(parentNode);
 
     const [state] = await chromeStorageGet('state');
 
-    const playButton = appendDiv(container, 'play', state === 'playing' ? 'hidden' : '');
+    const playButton = appendImg(container, restIcon, `icon ${state === 'playing' ? 'hidden' : ''}`);
     playButton.onclick = async () => {
         const [startTime, endTime] = await chromeStorageGet('startTime', 'endTime');
         chromeStorageSet({
@@ -16,7 +18,7 @@ const appendController = async (parentNode) => {
         });
     };
 
-    const pauseButton = appendDiv(container, 'pause', state !== 'playing' ? 'hidden' : '');
+    const pauseButton = appendImg(container, workIcon, `icon ${state !== 'playing' ? 'hidden' : ''}`);
     pauseButton.onclick = () => {
         chromeStorageSet({
             state: 'paused',
